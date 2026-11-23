@@ -1,4 +1,12 @@
 {
+  "name": "aaradhya-setu-puja-page",
+  "version": "1.0.0",
+  "description": "Aaradhya Setu Custom Puja Product Page & Sacred Checkout",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node run-micro-audit.js"
+  },
   "devDependencies": {
     "playwright": "^1.65.1"
   }
