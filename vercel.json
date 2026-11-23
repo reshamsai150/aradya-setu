@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/checkout", "destination": "/shopify-theme/checkout.html" },
+    { "source": "/checkout/", "destination": "/shopify-theme/checkout.html" },
+    { "source": "/(.*)", "destination": "/shopify-theme/$1" }
+  ]
+}
