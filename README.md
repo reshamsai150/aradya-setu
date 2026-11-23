@@ -1,236 +1,330 @@
-# Aaradhya Setu — Custom Puja Product Page & Sacred Checkout
-### Software Engineering Intern Assignment — Option 1 (Shopify Custom Puja Page)
+# Aaradhya Setu — Custom Shopify Puja Product Page & Checkout
 
-[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-35204F?style=for-the-badge&logo=github)](https://github.com/reshamsai150/aradya-setu)
-[![Shopify Theme](https://img.shields.io/badge/Shopify-Liquid%202.0-95BF47?style=for-the-badge&logo=shopify)](https://shopify.dev)
-[![Playwright QA Tested](https://img.shields.io/badge/Playwright-100%25%20Verified-2EAD33?style=for-the-badge&logo=playwright)](https://playwright.dev)
+[![Shopify Liquid](https://img.shields.io/badge/Shopify-Liquid-7AB55C?logo=shopify&logoColor=white)](https://shopify.dev)
+[![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+[![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Playwright](https://img.shields.io/badge/Tested%20with-Playwright-2EAD33?logo=playwright&logoColor=white)](https://playwright.dev)
 
-> A production-ready custom Shopify product page and checkout flow crafted for **[Aaradhya Setu](https://www.aaradhyasetu.com)** under the **Modern Spiritual Luxury** design philosophy. Built with modular Shopify Online Store 2.0 architecture, real-time dynamic calculations, devotee Sankalp capture, persistent cart drawer, and responsive viewports.
-
----
-
-## 📌 Assignment Selection Notice
-
-Per the Aaradhya Setu assignment instructions:
-> *"Important: Complete ANY ONE of the following three tasks. You do not need to complete all three."*
-
-- ✅ **Option 1 — Shopify: Custom Puja Product Page**: **SELECTED & FULLY IMPLEMENTED**
-- ❌ **Option 2 — Full-Stack: Puja Booking Dashboard**: *Excluded as instructed*
-- ❌ **Option 3 — Full-Stack: Booking Workflow & Notifications**: *Excluded as instructed*
+A custom, responsive Shopify product page and checkout flow developed for **Aaradhya Setu** (`Option 1` of the Software Engineering Intern Technical Assignment). Built with Shopify Online Store 2.0 architecture, dynamic pricing, devotee Sankalp customization, slide-over cart drawer with in-cart quantity controls, and local test verification.
 
 ---
 
-## 🏛️ Project Architecture & File Directory
+## Table of Contents
+
+- [Project Overview](#project-overview)
+- [Key Features](#key-features)
+- [Visual Showcase & Screenshots](#visual-showcase--screenshots)
+- [Technology Stack](#technology-stack)
+- [Project Structure](#project-structure)
+- [Shopify Integration Details](#shopify-integration-details)
+- [UI/UX & Design System](#uiux--design-system)
+- [Installation & Local Setup](#installation--local-setup)
+- [QA Testing & Automated Verification](#qa-testing--automated-verification)
+- [Known Limitations](#known-limitations)
+- [Future Improvements](#future-improvements)
+- [Author](#author)
+
+---
+
+## Project Overview
+
+Aaradhya Setu connects devotees with sacred Hindu temples across India for remote pujas, rituals, and homams. Unlike standard e-commerce merchandise, devotional offerings require:
+1. **Sacred Context**: Communicating the spiritual sanctity of temple sanctums (*Kashi Vishwanath Jyotirlinga Dham*).
+2. **Devotee Sankalp Particulars**: Collecting personalized ritual information (Devotee Full Name, Gotra lineage, auspicious date, and prayer intention) that must stay attached to the booking throughout the order pipeline.
+3. **Offering Add-ons**: Enabling optional add-on offerings (*1008 Bilva Patra Archana*, *Desi Cow Ghee Akhand Deepam*, *Brahmin Bhojan & Gau Seva*) that dynamically affect the Dakshina amount.
+4. **Transparent Experience**: Ensuring the devotee's cart and checkout show their exact offerings, package tiers, and logistics particulars without broken routes.
+
+This project delivers both the **Shopify Online Store 2.0 Theme section and templates** (`.liquid`, `.json`, `.css`, `.js`) and a local testing harness to inspect and interact with the page.
+
+---
+
+## Key Features
+
+- **Product Imagery & Multi-Angle Gallery**:
+  - High-resolution temple sanctum imagery with thumbnail switching.
+  - Image lightbox zoom modal triggered by clicking the main image, with backdrop blur and keyboard `Escape` dismissal.
+  - Live broadcast indicator (*"Live Vedic Sanctum"*) with a pulsing green indicator.
+
+- **Puja Descriptions & Spiritual Benefits**:
+  - Clear temple association tag (*Kashi Vishwanath Jyotirlinga Dham, Varanasi*).
+  - Social proof rating (*4.97 ★ from 1,482 Devotees*).
+  - 4-point benefits grid detailing planetary dosha pacification, spiritual energy, and consecrated Bhasma/Rudraksha delivery.
+
+- **Seva Tier Variant Selection**:
+  - **Individual Seva** (₹5,100 — Save 21% off ₹6,500 compare-at price).
+  - **Family Seva** (₹7,500 — up to 4 family members + silver coin).
+  - **Royal Heritage** (₹11,000 — full Parivar + consecrated Shivling idol).
+  - Accessible button states (`tabindex="0"`, `role="button"`, `aria-pressed`).
+
+- **Optional Sacred Offerings / Add-on Selector**:
+  - Checkbox add-ons with immediate live price calculation:
+    - *1008 Bilva Patra Archana* (+₹750)
+    - *Desi Cow Ghee Akhand Deepam* (+₹500)
+    - *Brahmin Bhojan & Gau Seva Donation* (+₹1,200)
+
+- **Devotee Sankalp Customization Form (Shopify Line Item Properties)**:
+  - Required client-side validation for Devotee Name and WhatsApp Number.
+  - Captures Gotra, preferred date, and special prayer intention.
+
+- **Quantity Selector**:
+  - Controls clamped strictly between `1` and `10`.
+  - Rejects zero, negative values, and non-numeric characters.
+
+- **Add to Cart & Slide-Over Cart Drawer**:
+  - Prevents duplicate clicks by disabling the button and displaying a loading indicator (*"Consecrating Offering..."*).
+  - Slides out the sacred cart drawer displaying the product thumbnail, Seva tier, devotee Gotra, and selected add-ons.
+  - **In-Cart Quantity Modifiers**: Features `+` and `−` controls directly inside the cart drawer.
+  - **Cart Removal & Empty State**: Removing items recalculates subtotal; empty cart provides a *"Continue Offering Browsing"* button.
+  - **Persistence**: Retains cart data across page reloads via `localStorage` (`as_sacred_cart`).
+
+- **Dedicated Sacred Checkout Flow (`/checkout`)**:
+  - Replaces broken default routes with an HTTP 200 checkout page.
+  - Pre-populates devotee contact and displays an itemized summary with total Dakshina.
+  - Displays a clear demonstration notice (*"Demonstration Checkout Mode: No real payment transaction or credit card charge will take place"*).
+  - Simulates order generation with a consecrated order ID (e.g. `AS-371024`) and resets the cart.
+
+---
+
+## Visual Showcase & Screenshots
+
+All screenshots below were captured during automated Playwright test execution in the `test-results/` directory:
+
+### Desktop Product Page
+![Desktop Product Page](test-results/desktop_product_page.png)
+*Desktop view showing product gallery, Seva tier selector, add-on offerings, benefits checklist, and devotee Sankalp form.*
+
+### Gallery Image Lightbox Zoom Modal
+![Image Lightbox Zoom](test-results/gallery_zoom_modal.png)
+*Enlarged sanctum preview with backdrop blur and close controls.*
+
+### Slide-Over Sacred Cart Drawer
+![Cart Drawer Added](test-results/cart_drawer_added.png)
+*Cart drawer displaying product thumbnail, package tier, Gotra, selected add-ons, in-cart quantity controls, and subtotal.*
+
+### Sacred Checkout Page
+![Checkout Page Desktop](test-results/checkout_page_desktop.png)
+*Dedicated checkout view showing devotee details, prasad delivery address inputs, and order summary.*
+
+### Order Confirmation View
+![Order Confirmed View](test-results/checkout_order_confirmed.png)
+*Simulated order generation displaying consecrated Order ID (`AS-371024`) and confirmation summary.*
+
+### Mobile Responsive Layout (390 × 844)
+![Mobile Product Page](test-results/mobile_product_page_390x844.png)
+*Mobile view on iPhone viewport with stacked layout and zero horizontal overflow.*
+
+---
+
+## Technology Stack
+
+Technologies used in this project:
+
+- **Shopify Liquid 2.0**: Section template with schema settings (`custom-puja-product.liquid`) and JSON template (`product.puja.json`).
+- **HTML5 & CSS3**: Custom responsive styling adhering to modern CSS custom properties (`--as-plum-primary`, `--as-gold-accent`, `--as-ivory-bg`).
+- **Vanilla JavaScript (ES6+)**: Custom DOM logic for thumbnail switching, modal lightbox, dynamic price calculations, and cart state.
+- **Node.js (Built-in `http`, `fs`, `path`)**: Zero-dependency local preview server (`server.js`) mapping `/` and `/checkout` routes.
+- **Playwright (`v1.65.1`)**: Headless browser automation framework used for testing across mobile, tablet, and desktop viewports.
+
+---
+
+## Project Structure
 
 ```
 aradya-setu/
-├── shopify-theme/
+├── shopify-theme/                         # Complete Shopify theme bundle
 │   ├── sections/
-│   │   └── custom-puja-product.liquid   # Shopify 2.0 Liquid section with customizable schema
+│   │   └── custom-puja-product.liquid     # Liquid section with schema settings for merchants
 │   ├── templates/
-│   │   └── product.puja.json            # Shopify JSON product template linking to section
+│   │   └── product.puja.json              # Shopify 2.0 JSON product template
 │   ├── assets/
-│   │   ├── custom-puja.css              # Custom styles (Royal Plum, Warm Ivory, Gold accent)
-│   │   └── custom-puja.js               # Gallery zoom, Seva tiers, Add-ons, Cart Drawer & in-cart +/- controls
-│   ├── checkout.html                    # Dedicated sacred checkout page (HTTP 200, no 404s)
-│   └── index.html                       # Standalone live interactive product page
-├── test-results/                        # High-resolution Playwright QA test screenshots
-│   ├── desktop_product_page.png         # Desktop full view
-│   ├── gallery_zoom_modal.png           # Sanctum image lightbox zoom
-│   ├── cart_drawer_added.png            # Slide-over cart drawer with line items
-│   ├── checkout_page_desktop.png        # Sacred checkout page with summary
-│   ├── checkout_order_confirmed.png     # Simulated order confirmation view
-│   └── mobile_product_page_390x844.png  # Mobile responsive layout
-├── run-audit.js                         # 12-Phase Playwright test suite
-├── run-micro-audit.js                   # End-to-end micro-functionality verification script
-├── test-checkout.js                     # Checkout flow & information preservation verification
-├── server.js                            # Local preview HTTP server with /checkout routing
-├── README.md                            # Complete documentation & interview guide
-└── .gitignore                           # Repository ignore configuration
+│   │   ├── custom-puja.css                # Custom CSS styling (Modern Spiritual Luxury)
+│   │   └── custom-puja.js                 # Gallery, variants, add-ons, cart drawer & storage
+│   ├── checkout.html                      # Standalone checkout page for local demonstration
+│   └── index.html                         # Standalone product preview page
+├── test-results/                          # Test evidence and captured screenshots
+│   ├── cart_drawer_added.png
+│   ├── checkout_order_confirmed.png
+│   ├── checkout_page_desktop.png
+│   ├── checkout_page_mobile.png
+│   ├── desktop_product_page.png
+│   ├── gallery_zoom_modal.png
+│   └── mobile_product_page_390x844.png
+├── run-audit.js                           # 12-Phase Playwright test script
+├── run-micro-audit.js                     # Final micro-functionality end-to-end test script
+├── test-checkout.js                       # Dedicated checkout navigation test script
+├── server.js                              # Local HTTP preview server with /checkout routing
+├── package.json                           # Playwright devDependency configuration
+├── .gitignore                             # Git ignore rules (node_modules, logs)
+└── README.md                              # Project documentation
 ```
 
 ---
 
-## 🎨 Design System: Modern Spiritual Luxury
+## Shopify Integration Details
 
-The visual identity bridges traditional Indian devotional reverence with high-efficiency enterprise usability:
-
-| Color Token | Hex Code | Purpose |
-|---|---|---|
-| **Royal Plum (Primary)** | `#35204F` | Brand headers, primary action buttons, active navigation states |
-| **Royal Plum (Hover)** | `#493064` | Interactive button hover and focus states |
-| **Warm Ivory (Background)** | `#F8F5EF` | Page background providing spiritual warmth |
-| **Surface** | `#FFFFFF` | Product cards, form containers, modal content |
-| **Gold Accent** | `#B89454` | Section dividers, badges, focus outlines, star ratings |
-| **Lavender Accent** | `#EDE5F4` | Subdued tags, borders, subtle highlights |
-| **Text (Primary)** | `#292431` | High-contrast body text for readability |
-| **Text (Muted)** | `#7E7785` | Supporting labels, timestamps, metadata |
-| **Borders** | `#E8E3EB` | Subtle structural borders |
-
-### Typography Hierarchy
-- **Brand & Regal Titles**: `Playfair Display` (Serif, Bold)
-- **Interface & Form Fields**: `Inter` (Sans-serif, 400/500/600/700)
-
----
-
-## ✨ Key Functionality & Implemented Features
-
-### 1. Product Imagery & Interactive Gallery
-- High-resolution sacred sanctum imagery with multi-angle thumbnail switching.
-- **Image Lightbox Zoom**: Clicking the main sanctum view opens a full-screen zoom preview with backdrop blur and keyboard `ESC` dismissal.
-- Live Vedic Sanctum indicator with an animated pulsing dot.
-
-### 2. Puja Details, Descriptions & Benefits
-- Clear temple sanctum association (*Kashi Vishwanath Jyotirlinga Dham, Varanasi*).
-- 4.97-star rating with social proof (*1,482 Devotees Performed this Month*).
-- 4-point benefits grid detailing planetary dosha pacification, healing energy, and energized Bhasma/Rudraksha delivery.
-
-### 3. Dynamic Seva Tiers & Pricing Calculations
-- Supports package tiers with real-time price and compare-at discount updates:
-  - **Individual Seva**: ₹5,100 (Original: ₹6,500 — Save 21%)
-  - **Family Seva**: ₹7,500 (Original: ₹9,500)
-  - **Royal Heritage**: ₹11,000 (Original: ₹14,000)
-- Price display automatically adjusts when selecting package tiers, checkboxes, or quantities.
-
-### 4. Optional Sacred Offerings & Add-On Selector
-- Add-on offering options calculated dynamically per unit:
-  - *1008 Bilva Patra Archana (+₹750)*
-  - *Desi Cow Ghee Akhand Deepam (+₹500)*
-  - *Brahmin Bhojan & Gau Seva Donation (+₹1,200)*
-- Selection and deselection dynamically update subtotal calculations.
-
-### 5. Devotee Sankalp Capture (Shopify Line Item Properties)
-- Gathers required devotional data for the Purohit before cart submission:
-  - **Devotee Full Name** *(Mandatory validation)*
-  - **Gotra (Clan lineage)**
-  - **Preferred Auspicious Muhurta Date**
-  - **WhatsApp Number for Personal Sankalp Video Recording** *(Mandatory validation)*
-  - **Special Prayer / Sankalp Objective**
-
-### 6. Quantity Selector & Duplicate Submission Prevention
-- Custom `+` / `−` quantity buttons strictly clamped between `1` and `10`.
-- Manual input filtering rejects negative numbers, zero, and non-numeric characters.
-- Add to Cart button displays a loading spinner (*"Consecrating Offering..."*) and is disabled upon click to prevent accidental double-charges.
-
-### 7. Slide-Over Sacred Cart Drawer & In-Cart Modifiers
-- Cart drawer slides smoothly from the right without navigating away.
-- Displays item thumbnail, title, package tier, devotee name, Gotra, and selected add-ons.
-- **In-Cart Quantity Controls**: Features inline `+` and `−` buttons directly within the cart drawer.
-- **Item Removal**: One-click deletion with automatic recalculation.
-- **Empty State**: Displays an empty sacred vessel icon with a *"Continue Offering Browsing"* button that closes the drawer.
-- **Cart Persistence**: Stored via `localStorage` (`as_sacred_cart`), ensuring items remain after page refresh.
-
-### 8. Dedicated Sacred Checkout Flow (`/checkout`)
-- **Zero 404 Errors**: Server handles `/checkout` directly, serving a dedicated checkout interface.
-- Automatically retrieves items, quantities, add-ons, and devotee information from the cart session.
-- Captures delivery address for consecrated prasad courier.
-- **Simulation Disclaimer**: Prominently notes that payment is in demonstration mode and no real credit card charges take place.
-- Completes with a generated Order ID (e.g. `AS-432056`), clears the cart, and provides a confirmation screen.
-
----
-
-## 🧪 Automated QA Validation & Verification Summary
-
-The project was audited using an automated **Playwright test suite** covering all viewports and user journeys:
-
-```
-=== AARADHYA SETU — FINAL MICRO-FUNCTIONALITY QA AUDIT ===
-
-[1. Product Page Tests]
-Thumbnails found: 4
-Main image updated from thumbnail: true (PASS)
-Product Title: "Maha Rudrabhishekam at Kashi Vishwanath" (PASS)
-Description loaded: true (PASS)
-Initial quantity: 1 (PASS)
-Quantity after minus at 1: 1 (PASS)
-Quantity after plus: 2 (PASS)
-Price with Qty 2 (Individual): ₹10,200 (PASS)
-Price with Family Seva (Qty 2): ₹15,000 (PASS)
-Price with Bilva Patra Add-on (+750 * 2): ₹16,500 (PASS)
-
-[2. Add to Cart Tests]
-Cart drawer opened automatically? true (PASS)
-Cart badge count: 2 (PASS)
-
-[3. Shopping Cart Tests]
-Cart item image rendered? true (PASS)
-Cart drawer subtotal before in-cart plus: ₹16,500 (PASS)
-Cart drawer subtotal after in-cart plus (Qty 3): ₹24,750 (PASS)
-Cart drawer subtotal after in-cart minus (Qty 2): ₹16,500 (PASS)
-
-[4. Cart Persistence Test]
-Cart badge after page refresh: 2 (PASS)
-
-[5. Checkout Flow Tests]
-Navigated to URL: http://localhost:3000/checkout (PASS - 0 errors)
-Encountered 404? false (PASS)
-Retained Devotee: Aarav Sharma, Phone: +91 98201 44521, Total: ₹16,500 (PASS)
-Order confirmation displayed? true, Order ID: AS-371024 (PASS)
-Returned to home URL: http://localhost:3000/index.html (PASS)
-Cart counter after order completed: 0 (PASS)
-Empty cart shows "Continue Offering Browsing" button? true (PASS)
-Drawer closed via Continue Shopping button? true (PASS)
-
-[6. Viewport Responsive Tests]
-Mobile (375x812): client=375px, scroll=375px, overflow=false (PASS)
-Tablet (768x1024): client=768px, scroll=768px, overflow=false (PASS)
-Desktop (1440x900): client=1440px, scroll=1440px, overflow=false (PASS)
-
-Browser Console Errors: None (Clean 0 errors)
-=== FINAL MICRO-FUNCTIONALITY AUDIT COMPLETE ===
+### 1. Online Store 2.0 Section & Schema
+`shopify-theme/sections/custom-puja-product.liquid` is structured as a standard Shopify section. It exposes merchant configuration options through its `{% schema %}` block:
+```json
+{
+  "name": "Custom Puja Product Page",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show Customer Ratings",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sankalp_form",
+      "label": "Enable Devotee Sankalp Form",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_dakshina_addons",
+      "label": "Enable Optional Offerings / Add-Ons",
+      "default": true
+    }
+  ],
+  "presets": [{ "name": "Custom Puja Product Page" }]
+}
 ```
 
+### 2. Product Data & Dynamic Fallbacks
+In a connected Shopify store, variables such as `product.title`, `product.vendor`, `product.selected_or_first_available_variant.price`, and `product.images` populate directly from the Liquid store context. Fallbacks ensure that previews render properly in local environments:
+```liquid
+{{ product.title | default: 'Maha Rudrabhishekam at Kashi Vishwanath' }}
+{{ product.selected_or_first_available_variant.price | default: 510000 | money }}
+```
+
+### 3. Devotee Sankalp via Line Item Properties
+Devotee details are submitted as Shopify line-item properties (`properties[...]`). These properties attach to the line item in the Shopify Cart and Order object:
+- `properties[Devotee Name]`
+- `properties[Gotra]`
+- `properties[Puja Date]`
+- `properties[WhatsApp Number]`
+- `properties[Sankalp Intent]`
+
+### 4. Variant ID Binding
+When switching between *Individual*, *Family*, or *Royal Heritage* packages, the hidden input `[data-variant-id-input]` (`<input type="hidden" name="id">`) dynamically updates to the corresponding variant ID (`puja-rudra-ind-001`, `puja-rudra-fam-002`, `puja-rudra-roy-003`).
+
 ---
 
-## 🚀 How to Run Locally
+## UI/UX & Design System
+
+The visual identity is called **Modern Spiritual Luxury**:
+
+### Color Palette
+- **Primary Royal Plum (`#35204F`)**: Used for branding headers, primary buttons, and drawer accents.
+- **Primary Hover (`#493064`)**: Interactive hover and active feedback.
+- **Warm Ivory Background (`#F8F5EF`)**: Soft devotional background that avoids harsh pure whites.
+- **Surface White (`#FFFFFF`)**: Card surfaces, modal sheets, and form backgrounds.
+- **Gold Accent (`#B89454`)**: Borders, badges, star ratings, and focus rings.
+- **Lavender Soft Fill (`#EDE5F4`)**: Subtle tags and variant highlight cards.
+
+### Typography
+- **Headings & Brand Title**: `Playfair Display` (Serif).
+- **Body, Pricing & Form Fields**: `Inter` (Sans-serif, `400`, `500`, `600`, `700`).
+
+### Responsive Layout Rules
+- **Desktop (≥ 960px)**: 2-column layout (sticky media gallery on the left, customization details on the right).
+- **Tablet (768px – 959px)**: Responsive column widths with preserved spacing.
+- **Mobile (≤ 640px)**: 1-column stacked flow; assurance items wrap cleanly, price box stacks vertically, and container padding scales to `12px` on viewports down to `320px` to prevent horizontal scrolling.
+
+---
+
+## Installation & Local Setup
 
 ### Prerequisites
-- Node.js (v18 or higher)
+- [Node.js](https://nodejs.org/) (v18 or higher)
+- [Git](https://git-scm.com/)
 
-### Installation & Launch
+### 1. Clone the Repository
 ```bash
-# 1. Clone repository
 git clone https://github.com/reshamsai150/aradya-setu.git
 cd aradya-setu
+```
 
-# 2. Install dependencies (Playwright for automated QA)
+### 2. Install Test Dependencies
+```bash
 npm install
+```
+*(Installs Playwright for running the automated QA test suite).*
 
-# 3. Start local preview server
+### 3. Start the Local Server
+```bash
 node server.js
 ```
+The server will start on port 3000:
+- **Product Page**: `http://localhost:3000`
+- **Sacred Checkout Page**: `http://localhost:3000/checkout`
 
-### Accessing the Application
-- **Puja Product Page**: [http://localhost:3000](http://localhost:3000)
-- **Sacred Checkout**: [http://localhost:3000/checkout](http://localhost:3000/checkout)
+---
 
-### Running Automated QA Tests
+## QA Testing & Automated Verification
+
+Automated end-to-end tests verify interactions across desktop, tablet, and mobile viewports.
+
+### Running the Test Suite
 ```bash
-# Run 12-phase audit
-node run-audit.js
+# 1. Run the comprehensive micro-functionality audit
+node run-micro-audit.js
 
-# Run checkout flow test
+# 2. Run the dedicated checkout navigation & persistence test
 node test-checkout.js
 
-# Run final micro-functionality audit
-node run-micro-audit.js
+# 3. Run the 12-phase audit suite
+node run-audit.js
 ```
 
+### Verified Acceptance Criteria
+
+| Phase | Feature Tested | Verified Result | Status |
+|---|---|---|:---:|
+| **1. Gallery** | Thumbnail click changes main image | Switches active image; updates selection ring | **PASS** |
+| | Image Lightbox Zoom Modal | Opens full-screen view on click; closes on `ESC` | **PASS** |
+| **2. Description** | Title, rating, temple tag, benefits | Displays 4.97★, Kashi Vishwanath, 4 benefits | **PASS** |
+| **3. Pricing** | Dynamic price calculation | Updates for Seva tiers, add-ons, and quantities | **PASS** |
+| **4. Quantity** | Min/max validation | Clamped between 1 and 10; negative values blocked | **PASS** |
+| **5. Add-ons** | Select/deselect offerings | Updates unit total; preserves in cart items | **PASS** |
+| **6. Validation** | Sankalp form validation | Blocks submission if name or phone is empty | **PASS** |
+| **7. Cart Drawer** | Slide-out cart drawer | Opens automatically; displays devotee info | **PASS** |
+| | In-cart quantity controls | Inline `+` / `−` updates subtotal and quantity | **PASS** |
+| | Cart persistence | Stored in `localStorage`; retained on page reload | **PASS** |
+| | Item removal & empty state | Removing item updates total; empty state includes button | **PASS** |
+| **8. Checkout** | `/checkout` navigation | HTTP 200 route; zero 404 errors | **PASS** |
+| | Order information retention | Devotee details, add-ons, and totals preserved | **PASS** |
+| | Simulated order generation | Generates Order ID (`AS-371024`) and resets cart | **PASS** |
+| **9. Responsive** | Viewports: 320, 375, 390, 768, 1440 | `scrollWidth === clientWidth`; no horizontal scroll | **PASS** |
+| **10. Technical** | Console and runtime errors | **0 browser console errors, 0 failed requests** | **PASS** |
+
 ---
 
-## 🌐 Live Deployment Instructions
+## Known Limitations
 
-### GitHub Pages (Instant)
-1. Open your repository on GitHub: **[reshamsai150/aradya-setu](https://github.com/reshamsai150/aradya-setu)**.
-2. Go to **Settings** → **Pages**.
-3. Under **Branch**, select `main` and set the folder to `/shopify-theme`.
-4. Click **Save**. Your site will be live at `https://reshamsai150.github.io/aradya-setu/`.
+1. **Shopify Payment Gateway**:
+   This project is set up as a standalone prototype and theme section. It does not connect to a live payment gateway (Shopify Payments, Razorpay, or Stripe). The checkout flow is a functional demonstration that validates data flow and produces a simulated order confirmation.
+2. **Shopify Admin Sync**:
+   Without a connected Shopify store and Admin API key, orders are confirmed in the local session rather than appearing in a Shopify merchant admin dashboard.
 
 ---
 
-## 🧑‍💻 Technical Interview Talking Points
+## Future Improvements
 
-1. **Shopify Architecture**: Explains how Online Store 2.0 sections (`custom-puja-product.liquid`) decouple presentation from Shopify store data, allowing schema customizations without touching core liquid assets.
-2. **State Management**: Shows how the cart leverages pure client-side primitives (`localStorage`) structured identically to Shopify's AJAX Cart API (`/cart/add.js`, line-item properties, and item keys).
-3. **Data Integrity & Validation**: Demonstrates how devotee Sankalp data and add-ons are bundled together, preventing orphan orders or mismatched Dakshina sums.
-4. **Resilience & UX**: Explains how the checkout 404 issue was resolved via server routing, preventing user drop-off while clearly distinguishing demo environments from real payment gateways.
+1. **Shopify Store Deployment**: Upload section and assets to an active Shopify Partner development store via the Shopify CLI (`shopify theme push`).
+2. **Customer Account Integration**: Support one-click autofill for logged-in Shopify customers.
+3. **Multi-Currency Support**: Expand the `formatINR` formatter to support USD (`$`), GBP (`£`), and EUR (`€`) via Shopify Markets.
+4. **Calendar Date Booking**: Connect to a temple calendar availability API for real-time muhurta slot reservation.
+
+---
+
+## Author
+
+- **Resham Sai Pranathi**
+- **GitHub**: [https://github.com/reshamsai150](https://github.com/reshamsai150)
+- **Repository**: [https://github.com/reshamsai150/aradya-setu](https://github.com/reshamsai150/aradya-setu)
