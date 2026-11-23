@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "main": {
+      "type": "custom-puja-product",
+      "settings": {
+        "show_vendor": true,
+        "show_rating": true,
+        "enable_sankalp_form": true,
+        "enable_dakshina_addons": true
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

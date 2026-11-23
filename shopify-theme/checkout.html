@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sacred Checkout | Aaradhya Setu</title>
+  
+  <!-- Google Fonts: Inter & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  
+  <!-- Custom Puja CSS Asset -->
+  <link rel="stylesheet" href="./assets/custom-puja.css">
+
+  <style>
+    .as-checkout-page {
+      background-color: var(--as-ivory-bg);
+      min-height: 100vh;
+      font-family: var(--as-font-sans);
+      color: var(--as-text-main);
+    }
+    .as-checkout-header {
+      background: var(--as-plum-primary);
+      color: #FFF;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid var(--as-gold-accent);
+    }
+    .as-checkout-logo {
+      font-family: var(--as-font-serif);
+      font-size: 22px;
+      font-weight: 700;
+      color: #FFF;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .as-checkout-badge {
+      background: rgba(184, 148, 84, 0.2);
+      border: 1px solid var(--as-gold-accent);
+      color: var(--as-gold-light);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .as-checkout-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 36px;
+      align-items: start;
+      margin-top: 24px;
+    }
+    @media (max-width: 900px) {
+      .as-checkout-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+    }
+    @media (max-width: 640px) {
+      #checkout-form {
+        grid-template-columns: 1fr !important;
+      }
+      .as-checkout-card {
+        padding: 20px 16px;
+      }
+      .as-checkout-title {
+        font-size: 18px;
+      }
+    }
+    .as-checkout-card {
+      background: #FFF;
+      border: 1px solid var(--as-border);
+      border-radius: var(--as-radius-lg);
+      padding: 28px 24px;
+      box-shadow: var(--as-shadow-sm);
+    }
+    .as-checkout-title {
+      font-family: var(--as-font-serif);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--as-plum-dark);
+      margin: 0 0 16px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .as-demo-banner {
+      background: #FFF9E6;
+      border: 1px solid #F3DF9A;
+      border-left: 4px solid var(--as-gold-accent);
+      padding: 12px 16px;
+      border-radius: var(--as-radius-md);
+      font-size: 13px;
+      color: #7D6114;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .as-order-summary-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 14px 0;
+      border-bottom: 1px dashed var(--as-border);
+    }
+    .as-order-summary-item:last-child {
+      border-bottom: none;
+    }
+    .as-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 16px 0 0 0;
+      border-top: 2px solid var(--as-border);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--as-plum-primary);
+    }
+    .as-confirm-btn {
+      width: 100%;
+      height: 50px;
+      background: var(--as-plum-primary);
+      color: #FFF;
+      border: none;
+      border-radius: var(--as-radius-md);
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 24px;
+      box-shadow: 0 4px 14px rgba(53, 32, 79, 0.25);
+      transition: all 0.2s;
+    }
+    .as-confirm-btn:hover {
+      background: var(--as-plum-hover);
+    }
+    .as-confirm-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .as-success-view {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .as-success-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+    .as-order-id-badge {
+      display: inline-block;
+      background: var(--as-plum-soft);
+      border: 1px solid var(--as-plum-light);
+      color: var(--as-plum-primary);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-family: monospace;
+      font-size: 14px;
+      margin: 12px 0 20px 0;
+    }
+  </style>
+</head>
+<body class="as-checkout-page">
+
+  <!-- Header -->
+  <header class="as-checkout-header">
+    <a href="/index.html" class="as-checkout-logo">
+      🕉️ Aaradhya Setu
+    </a>
+    <div class="as-checkout-badge">
+      🔒 Secure Sacred Checkout
+    </div>
+  </header>
+
+  <main class="as-container">
+    
+    <!-- Breadcrumb -->
+    <nav class="as-breadcrumb" aria-label="Breadcrumb">
+      <a href="/index.html">Product Page</a>
+      <span class="as-breadcrumb-separator">/</span>
+      <span aria-current="page">Sacred Checkout</span>
+    </nav>
+
+    <!-- Notice of Simulated/Demo Checkout -->
+    <div class="as-demo-banner">
+      <span style="font-size:18px;">ℹ️</span>
+      <div>
+        <strong>Demonstration Checkout Mode:</strong> No real payment transaction or credit card charge will take place. All order items, devotee particulars, and sacred offerings are retrieved from your active session.
+      </div>
+    </div>
+
+    <!-- Active Checkout Form & Order Summary -->
+    <div id="checkout-container" class="as-checkout-grid">
+      
+      <!-- LEFT: Devotee & Delivery Information -->
+      <div class="as-checkout-card">
+        <h2 class="as-checkout-title">
+          <span>📜</span> Devotee & Prasad Delivery Details
+        </h2>
+
+        <form id="checkout-form" class="as-form-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+          <div class="as-form-field">
+            <label class="as-form-label">Devotee Full Name *</label>
+            <input type="text" id="cust-name" class="as-form-input" required placeholder="e.g., Aarav Sharma" />
+          </div>
+
+          <div class="as-form-field">
+            <label class="as-form-label">Gotra (Clan lineage)</label>
+            <input type="text" id="cust-gotra" class="as-form-input" placeholder="e.g., Kashyapa" />
+          </div>
+
+          <div class="as-form-field">
+            <label class="as-form-label">WhatsApp Number *</label>
+            <input type="tel" id="cust-phone" class="as-form-input" required placeholder="+91 98201 44521" />
+          </div>
+
+          <div class="as-form-field">
+            <label class="as-form-label">Devotee Email</label>
+            <input type="email" id="cust-email" class="as-form-input" placeholder="devotee@example.com" />
+          </div>
+
+          <div class="as-form-field is-full" style="grid-column:1/-1;">
+            <label class="as-form-label">Prasad Postal Delivery Address *</label>
+            <input type="text" id="cust-address" class="as-form-input" required placeholder="House/Flat No, Apartment, Street name" value="Flat 402, Lotus Towers, Baner" />
+          </div>
+
+          <div class="as-form-field">
+            <label class="as-form-label">City *</label>
+            <input type="text" id="cust-city" class="as-form-input" required value="Pune" />
+          </div>
+
+          <div class="as-form-field">
+            <label class="as-form-label">PIN Code *</label>
+            <input type="text" id="cust-pin" class="as-form-input" required value="411045" />
+          </div>
+
+          <div class="as-form-field is-full" style="grid-column:1/-1;">
+            <label class="as-form-label">Special Prayer / Sankalp Intention</label>
+            <input type="text" id="cust-sankalp" class="as-form-input" placeholder="Family wellness and prosperity" />
+          </div>
+
+          <div style="grid-column:1/-1;margin-top:10px;">
+            <button type="submit" id="btn-submit-order" class="as-confirm-btn">
+              <span>🪔 Confirm Sacred Booking & Generate Order</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- RIGHT: Order Summary -->
+      <div class="as-checkout-card">
+        <h2 class="as-checkout-title">
+          <span>🛍️</span> Sacred Offering Summary
+        </h2>
+
+        <div id="summary-items-list">
+          <!-- Populated from localStorage cart -->
+        </div>
+
+        <div class="as-total-row">
+          <span>Total Dakshina:</span>
+          <span id="summary-total-val">₹0</span>
+        </div>
+
+        <div style="font-size:11px;color:var(--as-text-muted);margin-top:12px;line-height:1.4;">
+          * Dakshina includes Temple Purohit honorarium, sacred puja samagri, live video clip on WhatsApp, and door-step consecrated prasad delivery with tracking.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SUCCESS / ORDER CONFIRMATION VIEW -->
+    <div id="order-success-view" class="as-checkout-card as-success-view">
+      <div class="as-success-icon">🪔</div>
+      <h2 style="font-family:var(--as-font-serif);font-size:26px;color:var(--as-plum-primary);margin:0 0 8px 0;">
+        Vedic Sankalp Confirmed!
+      </h2>
+      <p style="color:var(--as-text-muted);font-size:14px;max-width:540px;margin:0 auto;">
+        Har Har Mahadev. Your puja booking has been consecrated into our temple registry. Your assigned Tirth Purohit will perform the sankalp on the auspicious muhurta.
+      </p>
+
+      <div>
+        <span class="as-order-id-badge" id="confirmed-order-id">AS-ORDER-2026-001</span>
+      </div>
+
+      <div style="background:var(--as-plum-soft);border:1px solid var(--as-plum-light);padding:18px;border-radius:var(--as-radius-md);max-width:520px;margin:0 auto 24px auto;text-align:left;font-size:13px;">
+        <div><strong>Devotee:</strong> <span id="conf-devotee"></span></div>
+        <div style="margin-top:4px;"><strong>Gotra:</strong> <span id="conf-gotra"></span></div>
+        <div style="margin-top:4px;"><strong>WhatsApp for Video:</strong> <span id="conf-phone"></span></div>
+        <div style="margin-top:4px;"><strong>Total Dakshina:</strong> <span id="conf-amount"></span> (Simulated)</div>
+      </div>
+
+      <a href="/index.html" class="as-confirm-btn" style="display:inline-flex;width:auto;padding:0 28px;text-decoration:none;">
+        ← Return to Puja Catalog
+      </a>
+    </div>
+
+  </main>
+
+  <script>
+    (function() {
+      const STORAGE_KEY = 'as_sacred_cart';
+
+      function getCart() {
+        try {
+          const data = localStorage.getItem(STORAGE_KEY);
+          return data ? JSON.parse(data) : { items: [], total: 0, count: 0 };
+        } catch (e) {
+          return { items: [], total: 0, count: 0 };
+        }
+      }
+
+      function formatINR(val) {
+        return new Intl.NumberFormat('en-IN', {
+          style: 'currency',
+          currency: 'INR',
+          maximumFractionDigits: 0,
+        }).format(val || 0);
+      }
+
+      function escapeHtml(str) {
+        if (!str) return '';
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
+      const cart = getCart();
+      const itemsList = document.getElementById('summary-items-list');
+      const totalDisplay = document.getElementById('summary-total-val');
+
+      // Autofill devotee info from first cart item if available
+      if (cart.items && cart.items.length > 0) {
+        const first = cart.items[0];
+        if (first.devoteeName) document.getElementById('cust-name').value = first.devoteeName;
+        if (first.gotra) document.getElementById('cust-gotra').value = first.gotra;
+        if (first.phone) document.getElementById('cust-phone').value = first.phone;
+        if (first.sankalpIntent) document.getElementById('cust-sankalp').value = first.sankalpIntent;
+
+        // Render summary items
+        itemsList.innerHTML = cart.items.map(item => `
+          <div class="as-order-summary-item">
+            <div style="display:flex;gap:12px;align-items:flex-start;">
+              <img src="${escapeHtml(item.image || 'https://images.unsplash.com/photo-1609342122563-a43ac8917a3a?q=80&w=200&auto=format&fit=crop')}" alt="${escapeHtml(item.title)}" style="width:48px;height:48px;border-radius:var(--as-radius-sm);object-fit:cover;border:1px solid var(--as-border);flex-shrink:0;" />
+              <div>
+                <div style="font-weight:700;font-size:14px;color:var(--as-plum-dark);">${escapeHtml(item.title)}</div>
+                <div style="font-size:12px;color:var(--as-gold-accent);font-weight:600;">Package: ${escapeHtml(item.packageTier)} (Qty: ${item.quantity})</div>
+                ${item.addons && item.addons.length > 0 ? `<div style="font-size:11px;color:var(--as-text-muted);margin-top:2px;">Add-ons: ${item.addons.map(escapeHtml).join(', ')}</div>` : ''}
+                <div style="font-size:11px;color:var(--as-text-muted);margin-top:2px;">Devotee: ${escapeHtml(item.devoteeName)} | Gotra: ${escapeHtml(item.gotra)}</div>
+              </div>
+            </div>
+            <div style="font-weight:700;font-size:14px;color:var(--as-plum-primary);white-space:nowrap;margin-left:12px;">
+              ${formatINR(item.price * item.quantity)}
+            </div>
+          </div>
+        `).join('');
+
+        totalDisplay.textContent = formatINR(cart.total);
+      } else {
+        itemsList.innerHTML = '<div style="padding:24px 0;color:var(--as-text-muted);font-size:13px;text-align:center;">No puja items in cart. Please add a puja from the product page.</div>';
+        totalDisplay.textContent = formatINR(0);
+        document.getElementById('btn-submit-order').disabled = true;
+      }
+
+      // Handle checkout submission
+      const form = document.getElementById('checkout-form');
+      const submitBtn = document.getElementById('btn-submit-order');
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('cust-name').value.trim();
+        const phone = document.getElementById('cust-phone').value.trim();
+        const gotra = document.getElementById('cust-gotra').value.trim() || 'Kashyapa';
+
+        if (!name || !phone) {
+          alert('Please enter your full name and WhatsApp contact number.');
+          return;
+        }
+
+        // Loading state and prevent multiple submissions
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `
+          <svg style="width:18px;height:18px;animation:as-spin 0.8s linear infinite;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
+            <path d="M12 2a10 10 0 0 1 10 10"></path>
+          </svg>
+          Recording Sacred Order...
+        `;
+
+        setTimeout(function() {
+          const orderNum = 'AS-' + Math.floor(100000 + Math.random() * 900000);
+          document.getElementById('confirmed-order-id').textContent = orderNum;
+          document.getElementById('conf-devotee').textContent = name;
+          document.getElementById('conf-gotra').textContent = gotra;
+          document.getElementById('conf-phone').textContent = phone;
+          document.getElementById('conf-amount').textContent = formatINR(cart.total);
+
+          // Clear cart
+          localStorage.removeItem(STORAGE_KEY);
+
+          // Switch view
+          document.getElementById('checkout-container').style.display = 'none';
+          document.getElementById('order-success-view').style.display = 'block';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 800);
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,360 @@
+{% comment %}
+  Aaradhya Setu — Custom Puja Product Section (Audited & Production Enhanced)
+  Shopify Theme Section (Liquid + HTML + Schema)
+{% endcomment %}
+
+{{ 'custom-puja.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'custom-puja.js' | asset_url }}" defer="defer"></script>
+
+<div class="as-puja-page" data-puja-product data-base-price="{{ product.selected_or_first_available_variant.price | default: 510000 | divided_by: 100 }}" data-compare-price="{{ product.selected_or_first_available_variant.compare_at_price | default: 650000 | divided_by: 100 }}">
+  <div class="as-container">
+    
+    <!-- Breadcrumb -->
+    <nav class="as-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="as-breadcrumb-separator">/</span>
+      <a href="/collections/all-pujas">Sacred Pujas & Homams</a>
+      <span class="as-breadcrumb-separator">/</span>
+      <span aria-current="page">{{ product.title | default: 'Maha Rudrabhishekam at Kashi Vishwanath' }}</span>
+    </nav>
+
+    <div class="as-puja-grid">
+      
+      <!-- ========================================== -->
+      <!-- LEFT COLUMN: Product Gallery & Assurances -->
+      <!-- ========================================== -->
+      <div class="as-gallery-sticky">
+        <div class="as-main-image-wrap" title="Click to enlarge view">
+          <span class="as-badge-live">
+            <span class="as-pulse-dot"></span> Live Vedic Sanctum
+          </span>
+          <img 
+            data-main-image 
+            class="as-main-image" 
+            src="{{ product.featured_image | default: 'https://images.unsplash.com/photo-1609342122563-a43ac8917a3a?q=80&w=1200&auto=format&fit=crop' }}" 
+            alt="{{ product.title | default: 'Maha Rudrabhishekam' | escape }} Sacred Sanctum View"
+          />
+          <div class="as-zoom-hint">🔍 Click to zoom</div>
+        </div>
+
+        <!-- Thumbnails -->
+        <div class="as-thumbnails">
+          {% if product.images.size > 0 %}
+            {% for image in product.images %}
+              <button type="button" class="as-thumb-btn {% if forloop.first %}is-active{% endif %}" data-thumb-target data-full-src="{{ image | image_url: width: 1200 }}" aria-label="View {{ product.title }} image {{ forloop.index }}">
+                <img src="{{ image | image_url: width: 300 }}" alt="{{ image.alt | default: product.title | escape }}" />
+              </button>
+            {% endfor %}
+          {% else %}
+            <button type="button" class="as-thumb-btn is-active" data-thumb-target data-full-src="https://images.unsplash.com/photo-1609342122563-a43ac8917a3a?q=80&w=1200&auto=format&fit=crop" aria-label="View Sanctum Idol">
+              <img src="https://images.unsplash.com/photo-1609342122563-a43ac8917a3a?q=80&w=300&auto=format&fit=crop" alt="Sanctum Idol View" />
+            </button>
+            <button type="button" class="as-thumb-btn" data-thumb-target data-full-src="https://images.unsplash.com/photo-1620619767323-b95a89183081?q=80&w=1200&auto=format&fit=crop" aria-label="View Sacred Homa Fire">
+              <img src="https://images.unsplash.com/photo-1620619767323-b95a89183081?q=80&w=300&auto=format&fit=crop" alt="Sacred Homa Fire" />
+            </button>
+            <button type="button" class="as-thumb-btn" data-thumb-target data-full-src="https://images.unsplash.com/photo-1596704017254-9b121068fb31?q=80&w=1200&auto=format&fit=crop" aria-label="View Temple Corridor">
+              <img src="https://images.unsplash.com/photo-1596704017254-9b121068fb31?q=80&w=300&auto=format&fit=crop" alt="Temple Sanctum Corridor" />
+            </button>
+            <button type="button" class="as-thumb-btn" data-thumb-target data-full-src="https://images.unsplash.com/photo-1567157577867-05ccb1388e66?q=80&w=1200&auto=format&fit=crop" aria-label="View Holy Ganga Ghat">
+              <img src="https://images.unsplash.com/photo-1567157577867-05ccb1388e66?q=80&w=300&auto=format&fit=crop" alt="Holy Ganga Ghat Offering" />
+            </button>
+          {% endif %}
+        </div>
+
+        <!-- Devotional Guarantees -->
+        <div class="as-assurance-strip">
+          <div class="as-assurance-item">
+            <div class="as-assurance-icon">🕉️</div>
+            <div class="as-assurance-title">Vedic Authenticity</div>
+            <div class="as-assurance-sub">Performed by Tirth Purohits</div>
+          </div>
+          <div class="as-assurance-item">
+            <div class="as-assurance-icon">📹</div>
+            <div class="as-assurance-title">Personal Sankalp Video</div>
+            <div class="as-assurance-sub">WhatsApp video clip with name/gotra</div>
+          </div>
+          <div class="as-assurance-item">
+            <div class="as-assurance-icon">📦</div>
+            <div class="as-assurance-title">Consecrated Prasad</div>
+            <div class="as-assurance-sub">Delivered to your home doorstep</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- RIGHT COLUMN: Puja Booking & Customization -->
+      <!-- ========================================== -->
+      <div class="as-details-col">
+        
+        <div class="as-temple-tag">
+          <span>🏛️</span>
+          <span>{{ product.vendor | default: 'Kashi Vishwanath Jyotirlinga Dham, Varanasi' }}</span>
+        </div>
+
+        <h1 class="as-puja-title">
+          {{ product.title | default: 'Maha Rudrabhishekam at Kashi Vishwanath' }}
+        </h1>
+
+        <!-- Rating & Social Proof -->
+        <div class="as-rating-row">
+          <span class="as-stars">★★★★★</span>
+          <strong>4.97</strong>
+          <span>(1,482 Devotees Performed this Month)</span>
+        </div>
+
+        <!-- Price Display Box -->
+        <div class="as-price-box">
+          <div class="as-price-left">
+            <span class="as-current-price" data-price-display>
+              {{ product.selected_or_first_available_variant.price | default: 510000 | money }}
+            </span>
+            <span class="as-compare-price" data-compare-price>
+              {{ product.selected_or_first_available_variant.compare_at_price | default: 650000 | money }}
+            </span>
+            <span class="as-discount-pill">Save 21%</span>
+          </div>
+          <div class="as-tax-text">Includes temple dakshina, samagri & prasad courier</div>
+        </div>
+
+        <!-- Description -->
+        <div class="as-description">
+          {{ product.description | default: '<p>Experience the divine grace of Mahadev at the eternal city of Kashi. Certified Vedic Acharyas perform this holy Rudrabhishekam chanting 11 recitations of Sri Rudram, offering Panchamrit, Bilva leaves, and holy Ganga jal in your name and Gotra.</p>' }}
+        </div>
+
+        <!-- Benefits Checklist -->
+        <div class="as-benefits-section">
+          <div class="as-section-label">
+            <span>✨</span> Sacred Blessings & Spiritual Benefits
+          </div>
+          <ul class="as-benefits-list">
+            <li class="as-benefit-item">
+              <span class="as-check-icon">✓</span>
+              <span>Pacifies planetary doshas and Rahu-Ketu afflictions</span>
+            </li>
+            <li class="as-benefit-item">
+              <span class="as-check-icon">✓</span>
+              <span>Bestows long life, healing energy, and mental peace</span>
+            </li>
+            <li class="as-benefit-item">
+              <span class="as-check-icon">✓</span>
+              <span>Protects from negative energies and adversary obstacles</span>
+            </li>
+            <li class="as-benefit-item">
+              <span class="as-check-icon">✓</span>
+              <span>Includes consecrated Bhasma and energized Rudraksha</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Form for Shopify Cart Processing -->
+        <form method="post" action="/cart/add" data-puja-form>
+          <input type="hidden" name="id" data-variant-id-input value="{{ product.selected_or_first_available_variant.id | default: 'puja-rudra-ind-001' }}">
+
+          <!-- Variant Selector: Package Tier -->
+          <div class="as-variant-group">
+            <div class="as-section-label">
+              <span>🪔</span> Select Puja Seva Tier
+            </div>
+            <div class="as-variant-options">
+              
+              <div class="as-variant-card is-selected" data-variant-card data-variant-id="{{ product.variants[0].id | default: 'puja-rudra-ind-001' }}" data-variant-price="5100" data-variant-compare="6500" tabindex="0" role="button" aria-pressed="true">
+                <input type="radio" name="package_level" value="Individual" checked style="display:none;" />
+                <div class="as-variant-name">Individual Seva</div>
+                <div class="as-variant-price">₹5,100</div>
+                <div class="as-variant-note">1 Devotee Sankalp + Standard Prasad</div>
+              </div>
+
+              <div class="as-variant-card" data-variant-card data-variant-id="{{ product.variants[1].id | default: 'puja-rudra-fam-002' }}" data-variant-price="7500" data-variant-compare="9500" tabindex="0" role="button" aria-pressed="false">
+                <input type="radio" name="package_level" value="Family" style="display:none;" />
+                <div class="as-variant-name">Family Seva</div>
+                <div class="as-variant-price">₹7,500</div>
+                <div class="as-variant-note">Up to 4 Family Members + Pure Silver Coin</div>
+              </div>
+
+              <div class="as-variant-card" data-variant-card data-variant-id="{{ product.variants[2].id | default: 'puja-rudra-roy-003' }}" data-variant-price="11000" data-variant-compare="14000" tabindex="0" role="button" aria-pressed="false">
+                <input type="radio" name="package_level" value="Royal Heritage" style="display:none;" />
+                <div class="as-variant-name">Royal Heritage</div>
+                <div class="as-variant-price">₹11,000</div>
+                <div class="as-variant-note">Full Parivar + Consecrated Shivling Idol</div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Optional Offering Add-On Selector -->
+          <div class="as-addons-section">
+            <div class="as-section-label">
+              <span>🌺</span> Optional Sacred Offerings & Add-Ons
+            </div>
+
+            <!-- Addon 1 -->
+            <label class="as-addon-item">
+              <div class="as-addon-left">
+                <input type="checkbox" class="as-addon-checkbox" data-addon-checkbox data-addon-name="1008 Bilva Patra Archana" data-addon-price="750" />
+                <div>
+                  <div class="as-addon-title">1008 Bilva Patra Archana</div>
+                  <div class="as-addon-desc">Special offering of holy leaves dipped in Chandan paste</div>
+                </div>
+              </div>
+              <div class="as-addon-price">+ ₹750</div>
+            </label>
+
+            <!-- Addon 2 -->
+            <label class="as-addon-item">
+              <div class="as-addon-left">
+                <input type="checkbox" class="as-addon-checkbox" data-addon-checkbox data-addon-name="Special Ghee Deepam (Akhand Jyot)" data-addon-price="500" />
+                <div>
+                  <div class="as-addon-title">Desi Cow Ghee Akhand Deepam</div>
+                  <div class="as-addon-desc">Lighted during the complete Rudram recitation</div>
+                </div>
+              </div>
+              <div class="as-addon-price">+ ₹500</div>
+            </label>
+
+            <!-- Addon 3 -->
+            <label class="as-addon-item">
+              <div class="as-addon-left">
+                <input type="checkbox" class="as-addon-checkbox" data-addon-checkbox data-addon-name="Brahmin Bhojan & Gau Seva" data-addon-price="1200" />
+                <div>
+                  <div class="as-addon-title">Brahmin Bhojan & Gau Seva Donation</div>
+                  <div class="as-addon-desc">Feed holy cows at Kashi Gaushala in your name</div>
+                </div>
+              </div>
+              <div class="as-addon-price">+ ₹1,200</div>
+            </label>
+          </div>
+
+          <!-- Sankalp Customization Form Fields (Shopify Line Item Properties) -->
+          <div class="as-sankalp-box">
+            <div class="as-section-label">
+              <span>📜</span> Devotee Sankalp Particulars
+            </div>
+
+            <div class="as-form-grid">
+              <div class="as-form-field">
+                <label class="as-form-label">Devotee Full Name *</label>
+                <input type="text" class="as-form-input" name="properties[Devotee Name]" placeholder="e.g., Aarav Sharma" required />
+              </div>
+
+              <div class="as-form-field">
+                <label class="as-form-label">Gotra (Clan lineage)</label>
+                <input type="text" class="as-form-input" name="properties[Gotra]" placeholder="e.g., Kashyapa (or 'Unknown')" />
+              </div>
+
+              <div class="as-form-field">
+                <label class="as-form-label">Preferred Auspicious Date</label>
+                <input type="date" class="as-form-input" name="properties[Puja Date]" />
+              </div>
+
+              <div class="as-form-field">
+                <label class="as-form-label">WhatsApp Number for Video Clip *</label>
+                <input type="tel" class="as-form-input" name="properties[WhatsApp Number]" placeholder="+91 98765 43210" required />
+              </div>
+
+              <div class="as-form-field is-full">
+                <label class="as-form-label">Sankalp Intention / Special Prayer</label>
+                <input type="text" class="as-form-input" name="properties[Sankalp Intent]" placeholder="e.g., Good health for family, career growth, or anniversary blessing" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Quantity & Add to Cart -->
+          <div class="as-purchase-row">
+            <div class="as-quantity-wrap">
+              <button type="button" class="as-qty-btn" data-qty-minus aria-label="Decrease quantity">−</button>
+              <input type="number" name="quantity" value="1" min="1" max="10" class="as-qty-input" data-qty-input aria-label="Puja offering quantity" />
+              <button type="button" class="as-qty-btn" data-qty-plus aria-label="Increase quantity">+</button>
+            </div>
+
+            <button type="submit" class="as-add-to-cart-btn" data-add-to-cart-btn>
+              <svg style="width:18px;height:18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              </svg>
+              <span>Book Puja & Add to Cart</span>
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Image Zoom Modal / Lightbox -->
+<div class="as-modal-backdrop" data-zoom-modal role="dialog" aria-modal="true" aria-label="Zoomed Product Image">
+  <div class="as-modal-content">
+    <button type="button" class="as-modal-close-btn" data-zoom-close aria-label="Close enlarged preview">&times;</button>
+    <img src="" alt="Enlarged Puja Sanctum Preview" class="as-modal-img" data-zoom-modal-img />
+  </div>
+</div>
+
+<!-- Slide-Over Cart Drawer -->
+<div class="as-drawer-backdrop" data-drawer-backdrop></div>
+<aside class="as-cart-drawer" data-cart-drawer aria-label="Sacred Cart Drawer">
+  <div class="as-drawer-header">
+    <div class="as-drawer-title">
+      <span>🕉️</span>
+      <span>Your Sacred Offerings</span>
+    </div>
+    <button type="button" class="as-drawer-close" data-drawer-close aria-label="Close cart drawer">&times;</button>
+  </div>
+
+  <div class="as-drawer-body" data-drawer-body>
+    <!-- Populated dynamically by custom-puja.js -->
+  </div>
+
+  <div class="as-drawer-footer">
+    <div class="as-drawer-subtotal-row">
+      <span class="as-drawer-subtotal-label">Subtotal Offering:</span>
+      <span class="as-drawer-subtotal-val" data-drawer-subtotal>₹0</span>
+    </div>
+    <button type="button" class="as-checkout-btn" data-checkout-btn>
+      <span>🔒 Proceed to Sacred Checkout</span>
+    </button>
+  </div>
+</aside>
+
+<!-- Add to Cart Notification Toast -->
+<div class="as-toast" data-puja-toast>
+  <span style="font-size:22px;">🪔</span>
+  <div>
+    <div style="font-weight:700;font-size:13px;color:#FFF;">Sacred Offering Added!</div>
+    <div style="font-size:12px;color:#DFCFAB;" data-toast-text>Your puja booking is ready in the cart.</div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Custom Puja Product Page",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show Customer Ratings",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sankalp_form",
+      "label": "Enable Devotee Sankalp Form",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_dakshina_addons",
+      "label": "Enable Optional Offerings / Add-Ons",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Puja Product Page"
+    }
+  ]
+}
+{% endschema %}
